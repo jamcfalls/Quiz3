@@ -29,12 +29,12 @@ class NewVisitorTest(unittest.TestCase):
 	
 	To this web site, do the following: 
 
-	1. Add a test for a page title on the home page and then add the title
-	2. Add a test for an h1 type heading on the home page and then add the heading
-	3. Add a test for an image of your choice and then insert the image into the home page. 
-	4. Add a test for a clickable area on the image then add the clickable image area going
+	check1. Add a test for a page title on the home page and then add the title
+	check2. Add a test for an h1 type heading on the home page and then add the heading
+	check3. Add a test for an image of your choice and then insert the image into the home page. 
+	check4. Add a test for a clickable area on the image then add the clickable image area going
 	   to the web page called "newpage.html"
-	5. Add a test for the result of clicking on the image area (the new page)
+	check5. Add a test for the result of clicking on the image area (the new page)
 	   then add the web page called "newpage.html" to make it pass
 	6. Test for a header on the new page and then add the header. 
 
@@ -57,6 +57,28 @@ class NewVisitorTest(unittest.TestCase):
 
 	# here is the first test (for free) 
         self.browser.get('http://localhost:8000/index.html')
+
+        self.assertIn('Quiz 3',self.browser.title)
+    
+
+        # now we test for a header that says "Quiz3"
+        a=self.browser.find_element_by_tag_name('h1')
+        # make sure it says Quiz3
+        self.assertIn('Quiz 3',a.text)
+
+        m=self.browser.find_element_by_tag_name('img')
+        self.assertIn('handsup.jpg',m.get_attribute('src'))
+
+        a=self.browser.find_element_by_id('newpage')
+        #**this is the test for the clickable area
+        a.click()
+
+        h=self.browser.find_element_by_tag_name('h1')
+        self.assertIn("newpage",h.text)
+        m=self.browser.find_element_by_tag_name('img')
+        self.assertIn('newpage.jpg',m.get_attribute('src'))
+    
+        
 
 if __name__=="__main__":
         unittest.main(warnings="ignore")
